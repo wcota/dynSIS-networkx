@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# ! ## File: example.py
-# ! Example of using dynSIS with networkx
+# ! ## File: example_karate.py
+# ! Example of using dynSIS with Karate Club network.
 # ! ## See README.md for more information and use
 # !-----------------------------------------------------------------------------
 # ! SIS epidemic model algorithm based on the article "Simulation of Markovian epidemic models on large networks"
