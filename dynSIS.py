@@ -31,7 +31,6 @@
 # ! For pure Python, see <https://github.com/wcota/dynSIS-py>
 
 import numpy as np
-import random
 
 def dyn_run(nw, fnOutput, dynp_sam, dynp_lb, dynp_tmax, dynp_pINI):
     net_N = nw.number_of_nodes()
