@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# ! ## File: example.py
-# ! Example of using dynSIS with networkx
+# ! ## File: example_read.py
+# ! Example of using dynSIS with edges list file and NetworkX
 # ! ## See README.md for more information and use
 # !-----------------------------------------------------------------------------
 # ! SIS epidemic model algorithm based on the article "Simulation of Markovian epidemic models on large networks"
