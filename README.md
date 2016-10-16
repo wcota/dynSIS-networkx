@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-This code is a implementation of the SIS-II algorithm, as detailed in our paper (to be cited). It receives as input a network file, containing a list of edges and read, via terminal, the dynamical parameters.
+This code is a implementation of the SIS-II algorithm, as detailed in our paper (to be cited). It receives as input a NetworkX graph object and the dynamical parameters.
 
 For performance, see https://github.com/wcota/dynSIS (Fortran implementation)
 
