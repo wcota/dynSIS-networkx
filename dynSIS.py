@@ -3,8 +3,10 @@
 # ! Module: use networkx graphs!
 # ! ## See README.md for more information and use
 # !-----------------------------------------------------------------------------
-# ! SIS epidemic model algorithm based on the article "Simulation of Markovian epidemic models on large networks"
-# ! Copyright (C) 2016 Wesley Cota, Silvio C. Ferreira
+# ! SIS epidemic model algorithm based on the article 
+# !           "Optimized Gillespie algorithms for the efficient simulation of 
+# !            Markovian epidemic processes on large and heterogeneous networks"
+# ! Copyright (C) 2017 Wesley Cota, Silvio C. Ferreira
 # ! 
 # ! Please cite the above cited paper as reference to our code.
 # ! 
@@ -23,7 +25,8 @@
 # !-----------------------------------------------------------------------------
 # ! Author    : Wesley Cota
 # ! Email     : wesley.cota@ufv.br
-# ! Date      : October 2016
+# ! Date      : 23 Feb 2017
+# ! Version   : 0.1
 # !-----------------------------------------------------------------------------
 # ! See README.md for more details
 # ! This code is available at <https://github.com/wcota/dynSIS-networkx>
@@ -31,6 +34,17 @@
 # ! For pure Python, see <https://github.com/wcota/dynSIS-py>
 
 import numpy as np
+
+print(  '################################################################################',
+        '### Optimized Gillespie algorithms for the efficient simulation of Markovian ###',
+        '####### epidemic processes on large and heterogeneous networks: SIS-OGA. #######',
+        '##============ Copyright (C) 2017 Wesley Cota, Silvio C. Ferreira ============##',
+        '##======= This code is available at <https://github.com/wcota/dynSIS>. =======##',
+        '##======== Please cite the above cited paper as reference to our code ========##',
+        '##=== This code is under GNU General Public License. Please see README.md. ===##',
+        '################################################################################',
+        '',
+        sep='\n')
 
 def dyn_run(nw, fnOutput, dynp_sam, dynp_lb, dynp_tmax, dynp_pINI):
     net_N = nw.number_of_nodes()
