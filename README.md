@@ -8,7 +8,7 @@
 
 [Python implementation - learn and use](https://github.com/wcota/dynSIS-py)
 
-[NetworkX Python implementation - range of options](https://github.com/wcota/dynSIS-networkx)
+[(this) NetworkX Python implementation - range of options](https://github.com/wcota/dynSIS-networkx)
 
 ## Synopsis
 
