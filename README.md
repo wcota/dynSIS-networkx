@@ -32,6 +32,8 @@ After defining the NetworkX graph, just call
 
 ```dynSIS.dyn_run(<nx.graph_Object>, <output_file_path>, <number_of_samples>, <infection_rate>, <maximum_time_steps>, <fraction_of_initial_infected_vertices>)```
 
+where ``<output_file_path>`` will be written with the average density of infected vertices versus time.
+
 ## Examples
 
 ### ```example_karate.py```
@@ -44,7 +46,7 @@ and type the asked parameters.
 
 ### ```example_read.py```
 
-You need provide a file containing the list of edges (__in__ and __out__, two collumns). ID of the vertices must be enumerated sequentially as `1, 2, 3,..., N`, where `N` is the total number of vertices of the network. Here, we assume  __undirected__ and __unweighted__ networks without multiple neither self connections.
+You need to provide a file containing the list of edges (__in__ and __out__, two collumns). ID of the vertices must be enumerated sequentially as `1, 2, 3,..., N`, where `N` is the total number of vertices of the network. Here, we assume  __undirected__ and __unweighted__ networks without multiple neither self connections.
 
 Consider, for example, a network with `N=5` vertices represented by:
 
