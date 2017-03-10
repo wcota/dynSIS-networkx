@@ -154,6 +154,7 @@ def dyn_run(nw, fnOutput, dynp_sam, dynp_lb, dynp_tmax, dynp_pINI):
         for dt_pos in range(0,dyn_dt_pos_max):
             print(1.0*avg_t[dt_pos]/avg_sam[dt_pos], 1.0*avg_rho[dt_pos]/(1.0*sam),
                     file=flOutput)
-        # If you use /avg_samSurv[dt_pos] instead of /(1.0*sam) to write avg_rho (2nd column), you have QS analysis :)
+        # If you use /avg_samSurv[dt_pos] instead of /(1.0*sam) to write avg_rho (2nd column), you have 
+        # QS analysis :)
                 
         flOutput.close()
