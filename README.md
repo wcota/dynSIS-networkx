@@ -66,6 +66,14 @@ To run, just use
 
 and type the asked parameters.
 
+Alternatively, use (Linux):
+
+```bash run_read.sh <edges_file> <output_file> <number of samples> <infection rate lambda> <maximum time steps> <fraction of infected vertices (initial condition)>```
+
+_Example:_
+
+```bash run_read.sh edges/s01.edges.dat "s01.lb0.002_100-samples.dat" 100 0.002 1000000 0.5```
+
 ## License
 
 This code is under [GNU General Public License v3.0](http://choosealicense.com/licenses/gpl-3.0/).

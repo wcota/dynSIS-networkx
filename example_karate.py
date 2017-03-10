@@ -25,8 +25,8 @@
 # !-----------------------------------------------------------------------------
 # ! Author    : Wesley Cota
 # ! Email     : wesley.cota@ufv.br
-# ! Date      : 23 Feb 2017
-# ! Version   : 0.1
+# ! Date      : 10 Mar 2017
+# ! Version   : 0.2
 # !-----------------------------------------------------------------------------
 # ! See README.md for more details
 # ! This code is available at <https://github.com/wcota/dynSIS-networkx>
@@ -37,7 +37,7 @@ import networkx as nx
 import dynSIS
 import sys
 
-if len(sys.argv) < 1:
+if len(sys.argv) < 2:
     print('You must enter output name as argument!')
     exit()
 

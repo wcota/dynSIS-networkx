@@ -25,8 +25,8 @@
 # !-----------------------------------------------------------------------------
 # ! Author    : Wesley Cota
 # ! Email     : wesley.cota@ufv.br
-# ! Date      : 23 Feb 2017
-# ! Version   : 0.1
+# ! Date      : 10 Mar 2017
+# ! Version   : 0.2
 # !-----------------------------------------------------------------------------
 # ! See README.md for more details
 # ! This code is available at <https://github.com/wcota/dynSIS-networkx>
@@ -34,6 +34,7 @@
 # ! For pure Python, see <https://github.com/wcota/dynSIS-py>
 
 import numpy as np
+from math import log
 
 print(  '################################################################################',
         '### Optimized Gillespie algorithms for the efficient simulation of Markovian ###',
@@ -48,14 +49,14 @@ print(  '#######################################################################
 
 def dyn_run(nw, fnOutput, dynp_sam, dynp_lb, dynp_tmax, dynp_pINI):
     net_N = nw.number_of_nodes()
-    net_kmax = max(nw.degree().values())
-    
-    avg_rho = np.zeros(dynp_tmax, np.float64)
+    net_kmax = max(nw.degree().values())        # Used in the rejection probability
+    avg_rho = np.zeros(dynp_tmax, np.float64)   # Average for rho at times t, averaged
     avg_t = np.zeros(dynp_tmax, np.float64)
-    avg_sam = np.zeros(dynp_tmax, np.int)
+    avg_sam = np.zeros(dynp_tmax, np.int)       # number of samples for each time t
+    avg_samSurv = np.zeros(dynp_tmax, np.int)   # and of survivng ones
 
-    dyn_ocp = [None]*net_N # any node type is allowed
-    dyn_sig = { i : 0 for i in nw.nodes()}
+    dyn_VI = [None]*net_N                       # list V^I. Any node type is allowed
+    dyn_sig = { i : 0 for i in nw.nodes()}      # sigma
     
     print('\nOk! Doing the samples...')
     
@@ -66,64 +67,78 @@ def dyn_run(nw, fnOutput, dynp_sam, dynp_lb, dynp_tmax, dynp_pINI):
         print('|| (random) Initial condition...')
         
         dyn_sig = dict.fromkeys(dyn_sig, 0)
-        dyn_ocp = [None]*net_N
-        dyn_voc = 0
-        dyn_sk = 0
+        dyn_VI = [None]*net_N
+        dyn_NI = 0
+        dyn_Nk = 0
+        
+        # Sort vertices and apply the initial condition
         for ver in np.random.permutation(nw.nodes()):
-            dyn_ocp[dyn_voc] = ver
-            dyn_voc += 1
+            dyn_VI[dyn_NI] = ver
+            dyn_NI += 1
             dyn_sig[ver]= 1
-            dyn_sk += nw.degree(ver)
-            if dyn_voc == int(net_N*dynp_pINI):
+            dyn_Nk += nw.degree(ver)
+            if dyn_NI == int(net_N*dynp_pINI):
                 break
     
-        # RUN, Forest, RUN!
+        # Run dynamics
         dyn_t = 0
         dyn_dt = 0.0
         dyn_dt_pos = 1
     
         print('|| Running dynamics...')
-        while dyn_t <= dynp_tmax and dyn_voc > 0:
-            # SIS II ALGORITHM
-            dyn_p = 1.0*dyn_voc / (dyn_voc + 1.0*dynp_lb * dyn_sk)
+        while dyn_t <= dynp_tmax and dyn_NI > 0:
+            # SIS-OGA ALGORITHM
         
-            if np.random.uniform() < dyn_p: # Cure
-                # Select a random occupied vertex and heal.
-                pos_ocp = np.random.randint(0,dyn_voc)
-                ver = dyn_ocp[pos_ocp]
+            # Calculate the total rate
+            dyn_R = (dyn_NI + 1.0*dynp_lb * dyn_Nk)
+        
+            # Select the time step
+            rnd = max(np.random.uniform(),1e-12) # Avoid u = 0
+            dyn_dt = -log(rnd) / dyn_R
+        
+            # Update the time
+            dyn_t += dyn_dt
+        
+            # Probability m to heal
+            dyn_m = 1.0*dyn_NI / dyn_R
+        
+            if np.random.uniform() < dyn_m: # Select a random occupied vertex and heal.
+                pos_inf = np.random.randint(0,dyn_NI)
+                ver = dyn_VI[pos_inf]
                 
-                # Healed
-                dyn_sig[ver]= 0
-                dyn_sk -= nw.degree(ver)
-                dyn_voc -= 1
-                dyn_ocp[pos_ocp] = dyn_ocp[dyn_voc]
-            else: # Try to infect
-                # Select an infected vertex and accept with the probability.
+                # Then, heal it
+                dyn_sig[ver] = 0
+                dyn_Nk -= nw.degree(ver)
+                dyn_NI -= 1
+                dyn_VI[pos_inf] = dyn_VI[dyn_NI]
+            else: # If not, try to infect: w = 1 - m
+                # Select the infected vertex i with prob. proportional to k_i
                 while True:
-                    pos_ocp = np.random.randint(0,dyn_voc)
-                    ver = dyn_ocp[pos_ocp]
+                    pos_inf = np.random.randint(0,dyn_NI)
+                    ver = dyn_VI[pos_inf]
                     if np.random.uniform() < 1.0*nw.degree(ver) / (1.0*net_kmax):
                         break
             
                 # Select one of its neighbors
                 ver = np.random.choice(nw.neighbors(ver))
             
-                if dyn_sig[ver]== 0: # Infect!
-                    dyn_sig[ver]= 1
-                    dyn_sk += nw.degree(ver)
-                    dyn_ocp[dyn_voc] = ver
-                    dyn_voc += 1
+                if dyn_sig[ver] == 0: # if not a phantom process, infect
+                    dyn_sig[ver] = 1
+                    dyn_Nk += nw.degree(ver)
+                    dyn_VI[dyn_NI] = ver    # Add one element to list
+                    dyn_NI += 1             # Increase by 1 the list
     
-            if dyn_voc > 0:
-                dyn_dt = 1.0/(dyn_voc + 1.0*dynp_lb * (1.0*dyn_sk))
-                dyn_t += dyn_dt
-            
+                # Try to save the dynamics by time unit
                 while (dyn_t >= dyn_dt_pos): # Save data
-                    dyn_dt_pos_max = max(dyn_dt_pos,dyn_dt_pos_max)
-                    avg_rho[dyn_dt_pos - 1] += 1.0*dyn_voc/net_N
+                    avg_rho[dyn_dt_pos - 1] += 1.0*dyn_NI/net_N
                     avg_t[dyn_dt_pos - 1] += dyn_t
                     avg_sam[dyn_dt_pos - 1] += 1
+                    if dyn_NI != 0: 
+                        avg_samSurv[dyn_dt_pos - 1] += 1
+                        dyn_dt_pos_max = max(dyn_dt_pos,dyn_dt_pos_max) # The maximum t with non-null rho
                     dyn_dt_pos += 1
+                
+                # if a absorbing state is reached, exit
     
         # Write output file
         flOutput = open(fnOutput, 'wt')
@@ -139,5 +154,6 @@ def dyn_run(nw, fnOutput, dynp_sam, dynp_lb, dynp_tmax, dynp_pINI):
         for dt_pos in range(0,dyn_dt_pos_max):
             print(1.0*avg_t[dt_pos]/avg_sam[dt_pos], 1.0*avg_rho[dt_pos]/(1.0*sam),
                     file=flOutput)
+        # If you use /avg_samSurv[dt_pos] instead of /(1.0*sam) to write avg_rho (2nd column), you have QS analysis :)
                 
         flOutput.close()
