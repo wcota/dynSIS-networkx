@@ -47,7 +47,8 @@ fnOutput = sys.argv[2]
 dynp_sam = int(input('How much dynamics samples? '))
 dynp_lb = float(input('Value of infection rate lambda (mu is defined as equal to 1) '))
 dynp_tmax = int(input('Maximum time steps (it stops if the absorbing state is reached) '))
-dynp_pINI = float(input('Fraction of infected vertices on the network as initial condition (is random to each sample) '))
+dynp_pINI = float(input('Fraction of infected vertices on the network as initial condition (is random \
+for each sample) '))
 
 G = nx.Graph()
 
