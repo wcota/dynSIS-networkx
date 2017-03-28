@@ -1,4 +1,6 @@
-# Optimized Gillespie algorithms for the efficient simulation of Markovian epidemic processes on large and heterogeneous networks: SIS-OGA
+# Optimized Gillespie algorithms for the simulation of Markovian epidemic processes on large and heterogeneous networks: SIS-OGA
+
+This code is part of the article "[Optimized Gillespie algorithms for the simulation of Markovian epidemic processes on large and heterogeneous networks](http://wesleycota.com/)"
 
 ### [NetworkX](https://networkx.github.io/) implementation
 
@@ -10,9 +12,11 @@
 
 (this) [NetworkX Python implementation - range of options](https://github.com/wcota/dynSIS-networkx)
 
+[GA Fortran implementation - Statistically exact, but NOT optimized](https://github.com/wcota/dynSIS-GA)
+
 ## Synopsis
 
-This code is a implementation of the SIS-OGA algorithm, as detailed in our paper (to be cited). It receives as input a NetworkX graph object and the dynamical parameters.
+This code is a implementation of the SIS-OGA algorithm, as detailed in our [paper](http://wesleycota.com/). It receives as input a NetworkX graph object and the dynamical parameters.
 
 For performance, see https://github.com/wcota/dynSIS (Fortran implementation)
 
