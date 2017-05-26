@@ -54,3 +54,11 @@ for each sample) '))
         
 # Run dynamics
 dynSIS.dyn_run(G, fnOutput, dynp_sam, dynp_lb, dynp_tmax, dynp_pINI)
+        
+print('')
+print('Everything ok!',True)
+print('Network input: nx.karate_club_graph()')
+print('Output file: '+ fnOutput)
+print('')
+print('*****Algorithm used: Optimized Gillespie Algorithm for SIS (SIS-OGA, NetworkX)*****')
+print('Codes available at <https://github.com/wcota/dynSIS>.')
