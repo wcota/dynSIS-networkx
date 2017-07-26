@@ -3,13 +3,14 @@
 # ! Module: use networkx graphs!
 # ! ## See README.md for more information and use
 # !-----------------------------------------------------------------------------
-# ! SIS epidemic model algorithm based on the article 
-# !           "Optimized Gillespie algorithms for the simulation of Markovian
-# !            epidemic processes on large and heterogeneous networks"
+# ! SIS epidemic model algorithm based on the article
+# !           Computer Physics Communications 219C (2017) pp. 303-312
+# !           "Optimized Gillespie algorithms for the simulation of 
+# !            Markovian epidemic processes on large and heterogeneous networks"
 # ! Copyright (C) 2017 Wesley Cota, Silvio C. Ferreira
 # ! 
-# ! Please cite the above cited paper (available at <http://wesleycota.com/ ) as reference
-# ! to our code.
+# ! Please cite the above cited paper (available at <http://dx.doi.org/10.1016/j.cpc.2017.06.007> ) 
+# ! as reference to our code.
 # ! 
 # !    This program is free software: you can redistribute it and/or modify
 # !    it under the terms of the GNU General Public License as published by
@@ -41,7 +42,7 @@ print(  '#######################################################################
         '######### Optimized Gillespie algorithms for the simulation of Markovian  ######',
         '####### epidemic processes on large and heterogeneous networks: SIS-OGA. #######',
         '##============ Copyright (C) 2017 Wesley Cota, Silvio C. Ferreira ============##',
-        '##================ Paper available at <http://wesleycota.com/ ================##',
+        '##===== Paper available at <http://dx.doi.org/10.1016/j.cpc.2017.06.007> =====##',
         '##======= The codes are available at <https://github.com/wcota/dynSIS> =======##',
         '##======== Please cite the above cited paper as reference to our code ========##',
         '##=== This code is under GNU General Public License. Please see README.md. ===##',
