@@ -92,7 +92,7 @@ Consider, for example, a network with `N=5` vertices represented by:
 3,4
 ```
 
-Examples of datasets and their specifications are available at http://goo.gl/Bm3VsR.
+Examples of datasets and their specifications are available at http://wcota.me/dynSISdatasets.
 
 To run, just use
 
