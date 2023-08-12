@@ -26,7 +26,7 @@
 # !    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # !-----------------------------------------------------------------------------
 # ! Author    : Wesley Cota
-# ! Email     : wesley.cota@ufv.br
+# ! Email     : wesley@wcota.me
 # ! Date      : 27 Mar 2017
 # ! Version   : 1.0
 # !-----------------------------------------------------------------------------
